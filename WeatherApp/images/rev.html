@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0;
+        }
+        h1, h2{
+            margin-top: 0;
+        }
+        .first-section{
+            background: grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        /* .container{
+            width: 80%;
+            max-width: 1100px;
+            margin: 0 auto;
+            
+        } */
+        .card-weather{
+            background: rgb(2,0,36);
+            background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(62,176,182,1) 35%, rgba(0,255,89,1) 100%);
+            margin: 5rem;
+        }
+        .search{
+            padding: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .input-button{
+            border: 0;
+            outline: 0;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
+        .input-button img{
+            width: 16px;
+        }
+        .input-search{
+            padding: 20px 40px;
+            border-radius: 20px;
+            outline: 0;
+            border: 0;
+            flex: 1;
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        .weather{
+            text-align: center;
+            color: white;
+            display: none;
+        }
+        .error{
+            display: none;
+        }
+        .temp{
+            font-size: 80px;
+        }
+        .city{
+            font-size: 40px;
+        }
+        .details{
+            display: flex;
+            justify-content: space-around;
+        }
+        .col{
+            display: flex;
+        }
+        .start-align{
+            align-self: flex-start;
+        }
+        .col-child{
+            margin-left: 17px;
+        }
+        .col-child p{
+            margin: 0;
+            font-size: 30px;
+        }
+        
+    </style>
+</head>
+<body>
+   <div class="first-section">
+        
+            <div class="card-weather">
+                <div class="card">
+                    <div class="search">
+                        <input type="text" placeholder="Enter your city name" class="input-search">
+                        <button class="input-button">
+                            <img src="images/search.png" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="error">
+                    <p>Invalid city name.</p>
+                </div>
+
+                <div class="weather">
+                    <img src="images/clouds.png" alt="" class="weather-icon">
+                    <h1 class="temp">22°c</h1>
+                    <h2 class="city">New York</h2>
+                    <div class="details">
+                        <div class="col">
+                            <img src="images/humidity.png" class="start-align">
+                            <div class="col-child">
+                                <p class="humidity">50%</p>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <img src="images/wind.png" class="start-align">
+                            <div class="col-child">
+                                <p class="wind">15 Km/h</p>
+                                <p>Wind Speed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div> 
+
+
+    <script>
+        const apiKey ="a0379e5807b4b5d1518078ed390f3f68";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const searchBox = document.querySelector(".input-search");
+        const searchButton = document.querySelector(".input-button");
+        const weatherIcon = document.querySelector(".weather-icon");
+
+        async function checkWeather(city){
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+
+            // check if response contains correct city name
+            if (response.status == 404) {
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+            }
+            else{
+                var data = await response.json();
+
+                // output the response into the document elements using innerHTML
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML= Math.round(data.main.temp) + "°c";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+                // update the image based on weather condition
+                if (data.weather[0].main == "Clouds") {
+                    weatherIcon.src = "images/clouds.png";    
+                }
+                if (data.weather[0].main == "Rain") {
+                    weatherIcon.src = "images/rain.png";    
+                }
+                if (data.weather[0].main == "Mist") {
+                    weatherIcon.src = "images/mist.png";    
+                }
+                if (data.weather[0].main == "Drizzle") {
+                    weatherIcon.src = "images/drizzle.png";    
+                }
+                if (data.weather[0].main == "Clear") {
+                    weatherIcon.src = "images/clear.png";    
+                }
+
+                // hide the error and show the weather
+                document.querySelector(".weather").style.display = "block";
+                document.querySelector(".error").style.display = "none";
+            }
+            // console.log(response);
+        }
+        searchButton.addEventListener("click", () =>{
+            checkWeather(searchBox.value);
+        });
+        
+
+    </script>
+</body>
+</html>
