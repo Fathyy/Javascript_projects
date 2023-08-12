@@ -46,10 +46,13 @@
             transition: all 0.3s;
             border: 1px solid black;
         }
-        .btn:focus,
-        .btn:hover{
+
+        .btn:hover:not([disabled]){
             background-color: black;
             color: #fff;
+        }
+        .btn:disabled{
+            cursor: no-drop;
         }
         #next-button{
             background: linear-gradient(135deg, rgba(251,63,82,1) 0%, rgba(252,250,70,1) 100%);
@@ -63,6 +66,12 @@
             width: 150px;
             color: black;
         }
+        .correct{
+            background-color:#9aeabc ;
+        }
+        .incorrect{
+            background-color: #ff9393;
+        }
     </style>
 </head>
 <body>
@@ -72,7 +81,7 @@
 
         <div class="quiz">
             <h2 id="questions">Question Goes here</h2>
-            <div class="answer-buttons">
+            <div id="answer-buttons">
                 <button class="btn">Answer 1</button>
                 <button class="btn">Answer 2</button>
                 <button class="btn">Answer 3</button>
@@ -110,7 +119,7 @@
             question: "What is your favorite city",
             answers: [
                 {text: "NY", correct: false},
-                {text: "Paris", correct: true},
+                {text: "Paris", correct: false},
                 {text: "Seoul", correct: true},
                 {text: "LA", correct: false},
             ]
@@ -118,12 +127,12 @@
         },
 
         {
-            question: "What is your favorite color",
+            question: "What is the largest desert in the world?",
             answers: [
-                {text: "Blue", correct: false},
-                {text: "Grey", correct: false},
-                {text: "Pink", correct: true},
-                {text: "Yellow", correct: false},
+                {text: "Antartica", correct: false},
+                {text: "Gobi", correct: false},
+                {text: "Kalahari", correct: false},
+                {text: "Sahara", correct: true},
             ]
 
         }
@@ -146,14 +155,96 @@
     }
 
     function showQuestion(){
-        // before showing a question remove the previous one
+        // before showing a question remove the previous question and answer
         resetState();
+
+
+        // show the questions
         let currentQuestion = questions[currentQuestionIndex];
+        let questionNo = currentQuestionIndex + 1;
+        questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+        // display the answers inside the buttons
+        currentQuestion.answers.forEach(answer =>{
+            const button = document.createElement("button");
+            button.innerHTML = answer.text;
+            button.classList.add("btn");
+            answerButtons.appendChild(button);
+
+            // adds true or false to the answers based on the answer chosen
+            if (answer.correct) {
+                button.dataset.correct = answer.correct;
+            }
+
+            // add the click function on these answers. When the answer is clicked it will call selectAnswer function
+            button.addEventListener("click", selectAnswer);
+        });
+
+    };
+
+    function resetState(){
+        nextBtn.style.display ="none";
+        while (answerButtons.firstChild) {
+            answerButtons.removeChild(answerButtons.firstChild);
+        }         
     }
 
+    function selectAnswer(e){
+        // if you click on an answer, it will be added to selectedBtn variable
+        const selectedBtn = e.target;
+        // then it checks if the selected answer is true
+        const isCorrect = selectedBtn.dataset.correct === "true";
+        if (isCorrect) {
+            selectedBtn.classList.add("correct");
+            score++;
+        }
+        else{
+            selectedBtn.classList.add("incorrect");
+        }
+
+
+        // if a wrong button is clicked, it will display the correct one in green automatically
+        //then it disables users from clicking other buttons
+        // the next button should show up automatically as well
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+            button.disabled = true;
+        });
+        nextBtn.style.display ="block";
+    }
+
+    function showScore(){
+        resetState();
+        // show score
+        questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
+        nextBtn.innerHTML = "Play Again";
+        nextBtn.style.display = "block";
+    }
+
+    function handleNextButton(){
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        }
+        else{
+            showScore();
+        }
+    }
+    
+    
+nextBtn.addEventListener("click", ()=>{
+    if (currentQuestionIndex < questions.length) {
+        handleNextButton();
+    }
+    else{
+        startQuiz();
+    }
+});
 
     
-    
+startQuiz();  
    </script>
 </body>
 </html>

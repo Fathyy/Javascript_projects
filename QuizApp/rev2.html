@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Another One</title>
+
+    <style>
+        *, *::before, *::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        .container{
+            background-color: #4D8076;
+            width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+        }
+        .wrapper{
+            background-color: white;
+            border-radius: 10px;
+            margin: 100px auto 70px;
+            width: 80%;
+            max-width: 900px;
+            padding: 1rem;
+        }
+        .wrapper h1{
+            padding: 1rem 0 1rem 0;
+            border-bottom: 1px solid;
+            margin-bottom: 1rem;
+        }
+        #questions{
+            margin-bottom: 2rem;
+        }
+        .btn{
+            width: 100%;
+            background: transparent;
+            border: 1px solid;
+            padding: 10px;
+            text-align: left;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        #next-btn{
+            width: 150px;
+            background: #4D8076;
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            color: #fff;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h1>Quiz</h1>
+            <div class="quiz">
+                <h2 id="questions">Questions Go here</h2>
+
+                <div id="answer-questions">
+                    <button class="btn">Answer</button>
+                    <button class="btn">Answer</button>
+                    <button class="btn">Answer</button>
+                    <button class="btn">Answer</button>
+                </div>
+
+                <div id="next-btn">Next</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // array to hold questions and answers
+
+        const questions =[
+            {
+                question: "What is the capital city of Kenya",
+                answers:[
+                 {text: "Nairobi", correct: true},
+                 {text: "Nanyuki", correct: false},
+                 {text: "Eldoret", correct: false},
+                 {text: "Mombasa", correct: false}   
+                 ]   
+            },
+
+            {
+                question: "What is your favorite color",
+                answers: [
+                    {text: "Blue", correct: false},
+                    {text: "Grey", correct: false},
+                    {text: "Pink", correct: true},
+                    {text: "Yellow", correct: false},
+                ]  
+            },
+
+            {
+                question: "What is your favorite city",
+                answers: [
+                    {text: "NY", correct: false},
+                    {text: "Paris", correct: false},
+                    {text: "Seoul", correct: true},
+                    {text: "LA", correct: false},
+                ]
+
+            },
+
+            {
+                question: "What is the largest desert in the world?",
+                answers: [
+                    {text: "Antartica", correct: false},
+                    {text: "Gobi", correct: false},
+                    {text: "Kalahari", correct: false},
+                    {text: "Sahara", correct: true},
+                ]
+            }
+        ];
+
+        // declare variables now
+        const questionElement =document.getElementById("questions");
+        const answerButtons =document.getElementById("answer-questions");
+        const nextBtn =document.getElementById("next-btn");
+
+        let currentQuestionIndex =0;
+        let score = 0;
+
+        function startQuiz(){
+            currentQuestionIndex =0;
+            score = 0;
+            nextBtn.innerHTML ="Next";
+            showQuestion();
+        }
+    </script>
+</body>
+</html>
