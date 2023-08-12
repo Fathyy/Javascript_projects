@@ -43,6 +43,13 @@
             border-radius: 5px;
             margin-bottom: 1rem;
         }
+        .btn:hover:not([disabled]){
+            background-color: black;
+            color: white;
+        }
+        .btn:disabled{
+            cursor: no-drop;
+        }
         #next-btn{
             width: 150px;
             background: #4D8076;
@@ -52,6 +59,13 @@
             margin: 0 auto;
             color: #fff;
             text-align: center;
+            display: none;
+        }
+        .correct{
+            background-color:#9aeabc ;
+        }
+        .incorrect{
+            background-color: #ff9393;
         }
         
     </style>
@@ -121,20 +135,101 @@
             }
         ];
 
-        // declare variables now
+        // declare variables for answers, questions and the next button
         const questionElement =document.getElementById("questions");
         const answerButtons =document.getElementById("answer-questions");
         const nextBtn =document.getElementById("next-btn");
 
-        let currentQuestionIndex =0;
+        let currentQuestionIndex = 0;
         let score = 0;
 
         function startQuiz(){
-            currentQuestionIndex =0;
+            currentQuestionIndex = 0;
             score = 0;
             nextBtn.innerHTML ="Next";
             showQuestion();
         }
+        function showQuestion(){
+            // remove previous question and answer before showing a new one
+            resetState();
+            // get the question index by adding question index (array) by one. Then add it before a question
+            currentQuestion = questions[currentQuestionIndex];
+            let questionNo = currentQuestionIndex + 1;
+            questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+            // display the answers inside the buttons now
+            currentQuestion.answers.forEach(answer =>{
+                const button = document.createElement("button");
+                button.innerHTML = answer.text;
+                button.classList.add("btn");
+                answerButtons.appendChild(button);
+
+                // add true or false to the answer based on the chosen one
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+
+                // add the click function on the answers
+                button.addEventListener("click", selectAnswer);
+            });
+        }
+
+        function resetState(){
+            nextBtn.style.display ="none";
+            while (answerButtons.firstChild) {
+                answerButtons.removeChild(answerButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e){
+            const selectedBtn = e.target;
+            const isCorrect = selectedBtn.dataset.correct === "true";
+            if (isCorrect) {
+                selectedBtn.classList.add("correct");
+                // when correct answer is chosen, increase the score
+                score++;
+            }
+            else{
+                selectedBtn.classList.add("incorrect");
+            }
+
+            Array.from(answerButtons.children).forEach(button =>{
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            nextBtn.style.display="block";
+        }
+
+        function showScore(){
+            resetState();
+            questionElement.innerHTML =`You have scored ${score} out of ${questions.length}`;
+            nextBtn.innerHTML ="Play Again";
+            nextBtn.style.display ="block";
+        }
+
+        function handlNextButton(){
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            }
+            else{
+                showScore();
+            }
+        }
+
+        nextBtn.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handlNextButton();
+            }
+            else{
+                startQuiz();
+            }
+        })
+
+
+        startQuiz();
     </script>
 </body>
 </html>
