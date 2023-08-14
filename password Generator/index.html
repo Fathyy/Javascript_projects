@@ -15,6 +15,40 @@
         </div>
         <button class="generate-button" onclick="createPassword()"><img src="images/generate.png" class="generate-image">Generate Password</button>
     </div>
-   <script src="script.js"></script> 
+   <!-- <script src="script.js"></script>  -->
+   <script>
+    const passwordBox = document.getElementById("password");
+    const length = 12;
+
+    const upperCase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerCase ="abcdefghijklmnopqrstuvwxyz";
+    const symbol ="@#$^&*()_+~|{}[]<>/-=";
+    const number ="0123456789";
+
+    // a combination of random numbers 
+    const allChars = upperCase + lowerCase + number + symbol;
+
+    function createPassword(){
+        let password ="";
+        password += upperCase[Math.floor(Math.random() * upperCase.length)];
+        password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+        password += number[Math.floor(Math.random() * number.length)];
+        password += symbol[Math.floor(Math.random() * symbol.length)];
+
+        // if the password is less than the required number, add random numbers to it
+        while (length > password.length) {
+            password += allChars[Math.floor(Math.random() * allChars.length)]; 
+        }
+
+        // if the password length is 12, you can display the password
+        passwordBox.value = password;
+    }
+
+    function copyPassword(){
+        passwordBox.select();
+        document.execCommand("copy");
+    }
+    
+   </script>
 </body>
 </html>
