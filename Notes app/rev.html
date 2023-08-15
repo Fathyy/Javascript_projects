@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="images/notes.png" alt="">Notes</h1>
+        <button class="btn"><img src="images/edit.png" alt="">Create Notes</button>
+        <div class="notes-container">
+            <!-- <p contenteditable="true" class="input-box">
+                <img src="images/delete.png" alt="">
+            </p> -->
+        </div>
+    </div>
+
+    <script>
+        const notesBtn = document.querySelector(".btn");
+        const notesContainer = document.querySelector(".notes-container");
+
+        // select all notes to ass them in the local storage
+        let notes = document.querySelectorAll(".input-box");
+
+        // show the notes in local storage
+        function showNotes(){
+            notesContainer.innerHTML = localStorage.getItem("notes");
+        }
+        showNotes();
+
+        // function to add notes into browser storage
+        function addStorage(){
+            localStorage.setItem("notes", notesContainer.innerHTML);
+        }
+
+        function createNote(){
+            let p = document.createElement("p");
+            p.classList.add("input-box");
+            p.setAttribute("contenteditable", "true");
+            notesContainer.appendChild(p);
+            let img = document.createElement("img")
+            img.src="images/delete.png";
+            p.appendChild(img);
+        }
+
+        // add the remove functionality
+        notesContainer.addEventListener("click", (e)=>{
+            e.target.tagName === "IMG";
+            e.target.parentElement.remove();
+            addStorage()
+        });
+       
+        notesBtn.addEventListener("click", ()=>{
+            createNote();
+        });
+    </script>
+</body>
+</html>
