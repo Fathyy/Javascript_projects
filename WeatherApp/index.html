@@ -39,7 +39,7 @@
         </div>
     </div>
 
-   <script>
+   <!-- <script>
     const apiKey = env(WEATHER_API_KEY);
     const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
@@ -50,7 +50,7 @@
     async function checkWeather(city){
         const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
-        // check if the response contains correct city name
+        // check if the user inputs correct city name
         if (response.status == 404) {
             document.querySelector(".error").style.display = "block";
             document.querySelector(".weather").style.display = "none";
@@ -95,6 +95,6 @@
     })
 
     
-   </script> 
+   </script>  -->
 </body>
 </html>
