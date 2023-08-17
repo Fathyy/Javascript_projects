@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair:opsz,wght@5..1200,400;5..1200,500;5..1200,600;5..1200,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* insert these styles before and after all elements */
+        *, *::before, *::before{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair', serif;
+        }
+
+        .container{
+            background-color: #0089BA;
+            min-height: 100vh;
+            width: 100%;
+        }
+        .quote-box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: #fff;
+            border-radius: 10px;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            box-shadow: 0 10px 20px 0px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 700px;
+        }
+        .heading{
+            margin-bottom: 2rem;
+            font-size: 40px;
+            position: relative;
+        }
+        .heading::after{
+            content: "";
+            position: absolute;
+            width: 75px;
+            background-color: #0089BA;
+            height: 3px;
+            border-radius: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+        }
+        .content{
+            min-height: 110px;
+            font-size: 26px;
+        }
+        .content::before,
+        .content::after{
+            content: '"';
+        }
+        .author{
+            position: relative;
+            font-size: 18px;
+            margin-top: 1rem;
+            float: right;
+            display: block;
+        }
+        .author::before{
+            content: "";
+            background-color: #0089BA;
+            width: 20px;
+            height: 3px;
+            position: absolute;
+            top: 50%;
+            border-radius: 3px;
+            left: -30px;
+        }
+        .quote-box div{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        button{
+            background: #0089BA;
+            outline: 0;
+            border: 0;
+            border-radius: 30px;
+            padding: 20px 40px;
+            font-size: 20px;
+            color: white;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote-box">
+            <h1 class="heading">Quote of the day</h1>
+            <blockquote class="content">Loading...</blockquote>
+            <span class="author">author Loading</span>
+
+            <div>
+                <button onclick="generateQuote(apiUrl)">Generate</button>
+                <button>Tweet</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const content = document.querySelector(".content");
+        const author = document.querySelector(".author");
+        // let the games begin
+        const apiUrl = "https://api.quotable.io/random";
+
+        async function generateQuote(){
+            const response = await fetch(apiUrl);
+
+            var data = await response.json();
+
+            content.innerHTML = data.content;
+            author.innerHTML = data.author;
+
+        }
+        generateQuote(apiUrl);
+    </script>
+</body>
+</html>

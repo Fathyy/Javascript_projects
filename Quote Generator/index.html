@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair:opsz,wght@5..1200,400;5..1200,500;5..1200,600;5..1200,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quote-box">
+        <h2>Quote of the day</h2>
+        <blockquote id="quote">Loading...</blockquote>
+        <span id="author">Loading...</span>
+
+        <div>
+            <button class="generate" onclick="getQuote(apiUrl);">New Quote</button>
+            <button class="tweet" onclick="tweet()"><img src="images/twitter.png">Tweet</button>
+        </div>
+    </div>
+
+    <script>
+        const quote = document.getElementById("quote");
+        const author = document.getElementById("author");
+
+        // API url to get data from
+        const apiUrl = "https://api.quotable.io/random";
+
+        // get the response
+        async function getQuote(){
+            const response = await fetch(apiUrl);
+            // data variable below will have all the info available in this api
+            var data = await response.json();
+            
+            quote.innerHTML = data.content;
+            author.innerHTML = data.author;
+        }
+        getQuote(apiUrl);
+
+        function tweet(){
+            window.open("https://twitter.com/intent/tweet?text=" + quote.innerHTML + 
+            "---- by " + author.innerHTML, "Tweet Window", "width=600, height=300");
+        }
+    </script>
+</body>
+</html>
