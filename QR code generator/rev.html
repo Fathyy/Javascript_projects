@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, ::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            background-color: #008F7A;
+        }
+        .container{
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            border-radius: 10px;
+            padding: 30px 60px;
+        }
+        .container p{
+            font-size: 18px;
+            margin-bottom: 1rem;
+        }
+        .container input{
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 17px;
+        }
+        .container button{
+            padding: 10px 20px;
+            border: none;
+            background: #008F7A;
+            color: #fff;
+            outline: none;
+            border-radius: 5px;
+            font-size: 17px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Qr code generator</p>
+        <input type="text" placeholder="Enter word or Url" id="qrText">
+        <div id="imgBox">
+            <img src="" alt="" id="qrImage">
+        </div>
+        <button onclick="generateQr()">Generate Url</button>
+
+
+    </div>
+
+    <script>
+        const qrText = document.getElementById("qrText");
+        const imgBox = document.getElementById("imgBox");
+        const qrImage = document.getElementById("qrImage");
+        function generateQr(){
+            qrImage.src=" https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, ::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            background-color:#005B44;
+        }
+        .container{
+            background-color: #fff;
+            padding: 20px 40px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            border-radius: 10px;
+        }
+        .heading{
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .heading::after{
+            content: "";
+            position: absolute;
+            background-color: #005B44;
+            height: 3px;
+            border-radius: 3px;
+            width: 75px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .quote-box{
+            text-align: center;
+        }
+        .quote{
+            margin: 2rem 0;
+            font-size: 18px;
+        }
+
+        .quote::before, 
+        .quote::after{
+            content: '"';
+        }
+        .author{
+            margin-bottom: 1rem;
+            float: right;
+            position: relative;
+            display: block;
+        }
+        .author::before{
+            content: "";
+            background-color: #005B44;
+            position: absolute;
+            height: 3px;
+            width: 20px;
+            border-radius: 3px;
+            left: 10px;
+            top: 50%;
+            left: -30px;
+        }
+        button{
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            background-color: #005B44;
+            color: white;
+            border-radius: 20px;
+            font-size: 18px;
+            margin: 5px;
+        }
+        .button-container{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="heading">Quote generator</h2>
+        <div class="quote-box">
+            <blockquote class="quote">Loading...</blockquote>
+            <span class="author">Author...</span>
+        </div>
+
+        <div class="button-container">
+            <button onclick="generateQuote(apiUrl)">Generate Quote</button>
+            <button>Tweet</button>
+        </div>
+
+    </div>
+    
+    <script>
+        const quote  = document.querySelector(".quote");
+        const author  = document.querySelector(".author");
+
+        const apiUrl = "https://api.quotable.io/random";
+
+        async function generateQuote(){
+            const response = await fetch(apiUrl);
+            var data = await response.json();
+
+            quote.innerHTML  = data.content;
+            author.innerHTML = data.author;
+        }
+        generateQuote();
+
+    </script>
+</body>
+</html>
