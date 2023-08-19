@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="images/468-thumbnail.png" alt="" class="song-img">
+            <!-- song-title -->
+            <h1>Despacito</h1>
+            <p>Luis Fonsi Ft. Puerto Rican</p>
+
+            <audio id="song">
+                <source src="images/Body of Water - TrackTribe.mp3" type="audio/mpeg">
+            </audio>
+
+            <!-- our own progress bar -->
+            <input type="range" value="0" id="progress">
+
+            <!-- add the control icons -->
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="controlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let controlIcon = document.getElementById("controlIcon");
+        
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+
+        function playPause(){
+            if (controlIcon.classList.contains("fa-pause")) {
+                song.pause();
+                // remove play class
+                controlIcon.classList.remove("fa-pause");
+                controlIcon.classList.add("fa-play");
+            }
+            else{
+                song.play();
+                controlIcon.classList.add("fa-pause");
+                controlIcon.classList.remove("fa-play");
+            }
+        }
+
+        // make sure the slider moves when the song is playing
+        if (song.play()) {
+            setInterval(()=>{
+                progress.value = song.currentTime;
+            },500);
+        }
+
+        // when we click anywhere on the slider the song should update
+        progress.onchange = function (){
+            song.play();
+            song.currentTime = progress.value;
+            controlIcon.classList.add("fa-pause");
+            controlIcon.classList.remove("fa-play");
+        }
+
+    </script>
+    
+</body>
+</html>
