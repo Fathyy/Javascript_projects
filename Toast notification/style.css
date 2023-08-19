@@ -36,7 +36,8 @@ body{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
-    position: relative;
+    position: relative; 
+    /* move toast container from left side all the way to the the right side */
     transform: translateX(100%);
     animation: moveleft 0.5s linear forwards;
 }
