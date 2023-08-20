@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <title>Media Player</title>
+    <style>
+        *, *::before,*::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        .container{
+            background-color: #333;
+            width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .music-player{
+            background-color: #ffe0e5;
+            width: 500px;
+            padding: 25px 35px;
+            text-align: center;
+        }
+        nav{
+            display: flex;
+            justify-content: space-between;
+        }
+        .circle{
+            height: 30px;
+            width: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
+            color: #f53192;
+        }
+        .song-img{
+            width: 200px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22);
+        }
+        .music-player h1{
+            margin: 1rem 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+        }
+        .music-player p{
+            font-size: 14px;
+            color: #333;
+        }
+        #progress{
+            -webkit-appearance: none;
+            height: 6px;
+            background-color: #f53192;
+            width: 100%;
+            border-radius: 4px;
+            margin: 40px 0;
+            cursor: pointer;
+        }
+        #progress::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            background-color: #f53192;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
+        }
+        .controls{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .controls div{
+            width: 60px;
+            height: 60px;
+            margin: 20px;
+            background-color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
+            cursor: pointer;
+            color: #f53192;
+        }
+        /* Make the play button bigger */
+        .controls div:nth-child(2){
+            background-color: #f53192;
+            color: #fff;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>         
+                </div>
+            </nav>
+
+            <img src="images/468-thumbnail.png" alt="" class="song-img">
+            <h1>Title</h1>
+            <p>Artist</p>
+
+            <audio id="song">
+                <source src="images/Body of Water - TrackTribe.mp3" type="audio/mpeg">
+            </audio>
+
+            <!-- progress bar -->
+            <input type="range" value="0" id="progress">
+
+            <!-- add the controls -->
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="controlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <script>
+        // let the js begin
+        const progress = document.getElementById("progress");
+        const song = document.getElementById("song");
+        const controlIcon = document.getElementById("controlIcon");
+        
+        // slider moves till the song ends
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+        function playPause(){
+            // if user clicks pause, then pause song
+            if (controlIcon.classList.contains("fa-pause")) {
+                song.pause();
+                // after pausing, show play button
+                controlIcon.classList.remove("fa-pause");
+                controlIcon.classList.add("fa-play");
+            }
+            else{
+                // if user clicks on play button, show the pause button
+                song.play();
+                controlIcon.classList.add("fa-pause");
+                controlIcon.classList.remove("fa-play");
+            }
+        }
+
+        // make sure the slider moves when the song is playing
+        if (song.play()) {
+            setInterval(()=>{
+                progress.value = song.currentTime;
+            },500);
+        }
+
+        // when we click anywhere on the slider, the song should update
+        progress.onchange = function(){
+            song.play();
+            song.currentTime = progress.value;
+            controlIcon.classList.add("fa-pause");
+            controlIcon.classList.remove("fa-play");
+        }
+
+    </script>
+    
+</body>
+</html>
