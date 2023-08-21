@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
-    <title>Media Player</title>
+    <title>Document</title>
     <style>
         *, *::before,*::after{
             margin: 0;
@@ -22,81 +22,76 @@
             align-items: center;
         }
         .music-player{
-            background-color: #ffe0e5;
-            width: 500px;
-            padding: 25px 35px;
+            background-color: #fff;
+            padding: 50px;
             text-align: center;
+            background-color: #ffe0e5;
         }
         nav{
             display: flex;
             justify-content: space-between;
+            margin-bottom: 1rem;
         }
         .circle{
-            height: 30px;
-            width: 30px;
-            background-color: #fff;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             border-radius: 50%;
-            box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
+            background-color: #fff;
             color: #f53192;
+            box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
         }
         .song-img{
             width: 200px;
+            margin-bottom: 2rem;
             border-radius: 50%;
-            border: 8px solid #fff;
-            box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22);
+            border: 9px solid white;
         }
-        .music-player h1{
-            margin: 1rem 0;
-            font-size: 20px;
-            font-weight: 500;
-            color: #333;
-        }
+        .music-player h1, 
         .music-player p{
-            font-size: 14px;
-            color: #333;
+            margin-bottom: 1rem;
         }
         #progress{
             -webkit-appearance: none;
-            height: 6px;
-            background-color: #f53192;
             width: 100%;
-            border-radius: 4px;
-            margin: 40px 0;
+            height: 5px;
+            border-radius: 5px;
+            background-color:#f53192 ;
             cursor: pointer;
+            margin: 40px 0;
         }
         #progress::-webkit-slider-thumb{
             -webkit-appearance: none;
             background-color: #f53192;
+            border: 5px solid #fff;
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            border: 8px solid #fff;
-            box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
         }
         .controls{
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 2rem;
         }
         .controls div{
             width: 60px;
             height: 60px;
-            margin: 20px;
-            background-color: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 50%;
             box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
             cursor: pointer;
+            background-color: #fff;
             color: #f53192;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        /* Make the play button bigger */
         .controls div:nth-child(2){
+            transform: scale(1.5);
             background-color: #f53192;
             color: #fff;
-            transform: scale(1.5);
         }
+
     </style>
 </head>
 <body>
@@ -106,9 +101,8 @@
                 <div class="circle">
                     <i class="fa-solid fa-angle-left"></i>
                 </div>
-
                 <div class="circle">
-                    <i class="fa-solid fa-bars"></i>         
+                    <i class="fa-solid fa-bars"></i> 
                 </div>
             </nav>
 
@@ -129,54 +123,50 @@
                 <div onclick="playPause()"><i class="fa-solid fa-play" id="controlIcon"></i></div>
                 <div><i class="fa-solid fa-forward"></i></div>
             </div>
-            
-        </div>
 
+        </div>
+        
     </div>
 
-    <!-- <script>
-        // let the js begin
-        const progress = document.getElementById("progress");
+    <script>
         const song = document.getElementById("song");
+        const progress = document.getElementById("progress");
         const controlIcon = document.getElementById("controlIcon");
-        
-        // slider moves till the song ends
-        song.onloadedmetadata = function(){
-            progress.max = song.duration;
-            progress.value = song.currentTime;
-        }
+
         function playPause(){
-            // if user clicks pause, then pause song
+            // if user clicks pause, pause the song
             if (controlIcon.classList.contains("fa-pause")) {
                 song.pause();
-                // after pausing, show play button
+                // after pausing show play button
                 controlIcon.classList.remove("fa-pause");
                 controlIcon.classList.add("fa-play");
             }
             else{
-                // if user clicks on play button, show the pause button
+                // if user clicks play, play the song
                 song.play();
-                controlIcon.classList.add("fa-pause");
+                // remove play icon and show pause
                 controlIcon.classList.remove("fa-play");
+                controlIcon.classList.add("fa-pause");
+
             }
         }
 
-        // make sure the slider moves when the song is playing
+
+        // make sure the slider moves when the song is being played
         if (song.play()) {
             setInterval(()=>{
                 progress.value = song.currentTime;
-            },500);
+            },500)
         }
 
-        // when we click anywhere on the slider, the song should update
+        // when you click anywhere on the slider, the song should play that part
         progress.onchange = function(){
             song.play();
             song.currentTime = progress.value;
-            controlIcon.classList.add("fa-pause");
             controlIcon.classList.remove("fa-play");
+            controlIcon.classList.add("fa-pause");
         }
-
-    </script> -->
+    </script>
     
 </body>
 </html>
