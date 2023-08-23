@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before,*::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        .container{
+            min-height: 100vh;
+            width: 100%;
+            padding: 10px;
+            background-color: #edeaff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .stopwatch{
+            width: 500px;
+            padding: 30px;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+            url(images/background.png);
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+            color: white;
+        }
+        .stopwatch h1{
+            font-size: 60px;
+            font-weight: 500;
+        }
+        .buttons{
+            margin-top: 2rem;   
+        }
+        .buttons img:nth-child(2){
+            transform: scale(1.5);
+        }
+        .buttons img{
+            width: 60px;
+            margin: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="stopwatch">
+            <h1 id="displayTime">00:00:00</h1>
+            <div class="buttons">
+                <img src="images/stop.png" alt="" onclick="watchStop()">
+                <img src="images/start.png" alt="" onclick="watchStart()">
+                <img src="images/reset.png" alt="" onclick="watchReset()">
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let [seconds, minutes, hours] = [0,0,0];
+        let displayTime = document.getElementById("displayTime");
+        let timer = null;
+
+        function stopWatch(){
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++
+            }
+            if (minutes == 60) {
+                minutes = 0;
+                hours++;
+            }
+
+            // add double digits to the numbers less than 10
+        // if it's less than 10, show 0 plus the second, minutes, hour else, show the number
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+
+        displayTime.innerHTML = h + ":" + m + ":" + s;
+
+        }
+
+        
+
+        function watchStart(){
+            if (timer !== null) {
+                clearInterval(timer)
+            }
+            timer = setInterval(stopWatch, 1000);
+        }
+
+        function watchStop(){
+            clearInterval(timer);
+        }
+
+        function watchReset(){
+            clearInterval(timer);
+            [seconds, minutes, hours] = [0,0,0];
+            displayTime.innerHTML = "00.00.00";
+        }
+
+    </script>
+</body>
+</html>
