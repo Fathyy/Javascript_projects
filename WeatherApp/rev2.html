@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+
+        .container{
+            background-color: blue;
+            margin: 100px auto 70px;
+            width: 600px;
+            padding: 40px;
+            color: white;
+        }
+        .search-box{
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .search-box input{
+            border: 0;
+            outline: 0;
+            flex: 1;
+            font-size: 17px;
+            padding-left: 8px;
+            border-radius: 25px;
+        }
+        .search-box button{
+            outline: 0;
+            border: 0;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;   
+        }
+        button img{
+            width: 20px;
+        }
+        .weather{
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .weather h1{
+            font-size: 80px;
+        }
+        .weather h2{
+            font-size: 40px;
+        }
+        .lower-section{
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .inner{
+            display: flex;
+        }
+        .lower-section div{  
+            margin-left: 1rem;
+            font-size: 20px;
+        }
+        .error{
+            color: red;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" placeholder="Enter City Name" id="inputBox">
+            <button id="inputBtn">
+                <img src="images/search.png" alt="">
+            </button>
+        </div>
+
+        <div class="error">Invalid city name</div>
+
+        <div class="weather">
+            <img src="images/rain.png" class="center-img" alt="" id="weatherIcon">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">New York</h2>
+
+            <div class="lower-section">
+                <div class="inner">
+                    <img src="images/humidity.png" alt="">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+
+                <div class="inner">
+                    <img src="images/wind.png" alt="">
+                    <div>
+                        <p class="wind">15 Km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const apiKey ="";
+
+        const inputBox = document.getElementById("inputBox");
+        const inputBtn = document.getElementById("inputBtn");
+        const weatherIcon = document.getElementById("weatherIcon");
+
+        async function showWeather(city){
+            const response = await fetch (apiUrl + city + `&appid=${apiKey}`);
+
+            if (response.status == 404) {
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+            }
+            else{
+                var data = await response.json();
+
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + "Km/h";
+
+                // update the weather icon based on the weather conditions
+                if (data.weather[0].main == "Clouds") {
+                    weatherIcon.src="images/clouds.png";
+                }
+                else if (data.weather[0].main == "Rain") {
+                    weatherIcon.src="images/rain.png";
+                }
+                else if (data.weather[0].main == "Drizzle") {
+                    weatherIcon.src="images/drizzle.png";
+                }
+                else if (data.weather[0].main == "Mist") {
+                    weatherIcon.src="images/mist.png";
+                }
+                else if (data.weather[0].main == "Clear") {
+                    weatherIcon.src="images/clear.png";
+                }
+
+                document.querySelector(".error").style.display = "none";
+                document.querySelector(".weather").style.display = "block";
+            }
+        }
+
+        inputBtn.addEventListener("click", ()=>{
+            showWeather(inputBox.value);
+        });
+    </script>
+</body>
+</html>

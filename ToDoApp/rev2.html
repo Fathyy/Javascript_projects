@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: purple;
+        }
+        .container{
+            background-color: #fff;
+            width: 80%;
+            max-width: 700px;
+            padding: 40px;
+            margin: 100px auto 70px;
+        }
+        .content{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+        }
+        .content img{
+            width: 30px;
+        }
+        .search{
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ddd9d9;
+            border-radius: 30px;
+        }
+        .search input{
+            border: none;
+            outline: none;
+            background: transparent; 
+            padding: 10px;
+            font-size: 18px;
+            flex: 1;
+        }
+        .search button{
+            border: none;
+            outline: none;
+            background-color: purple;
+            color: white;
+            padding: 16px 50px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        #listContainer li{
+            list-style-type: none;
+            margin-bottom: 1rem;
+            font-size: 18px;
+            position: relative;
+            user-select: none;
+            cursor: pointer;
+            padding: 12px 8px 12px 50px;
+        }
+        #listContainer li::before{
+            position: absolute;
+            content: "";
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background-image: url(images/unchecked.png);
+            background-size: cover;
+            background-position: center;
+            top: 12px;
+            left: 8px;
+        }
+        #listContainer li.checked{
+            color: #555;
+            text-decoration: line-through;
+        }
+        #listContainer li::after{
+            background-image: url(images/checked.png);
+        }
+        span{
+            float: right;
+            border-radius: 50%;
+            background-color: #555;
+            line-height: 40px;
+            height: 25px;
+            width: 25px;
+            text-align: center;
+            line-height: 25px;
+        }
+        span:hover{
+            background: #edeef0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h3>To do list</h3> 
+            <img src="images/icon.png" alt="">
+        </div>
+
+        <div class="search">
+            <input type="text" placeholder="Add your text" id="inputText">
+            <button id="addBtn" onclick="addTask()">Add</button>
+        </div>
+
+        <div class="">
+            <ul id="listContainer">
+                <!-- <li class="checked">One</li>
+                <li>Two</li>
+                <li>Three</li> -->
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        const inputText = document.getElementById("inputText");
+        const listContainer = document.getElementById("listContainer");
+
+        function addTask(){
+            if (inputText.value == "") {
+            alert("You must write something")
+            }
+            else{
+                let li = document.createElement("li");
+                li.innerHTML = inputText.value;
+                listContainer.appendChild(li);
+
+                // cross icon to delete lists
+                let span = document.createElement("span");
+                span.innerHTML = "\u00d7";
+                li.appendChild(span);
+
+                // clear the input after it is displayed on the list
+                inputText.value ="";
+                saveData();
+            }
+        }
+
+        // when the list is clicked, mark it as checked
+        listContainer.addEventListener("click", (e)=>{
+            if (e.target.tagName === "LI") {
+                e.target.classList.toggle("checked");
+                saveData();
+            }
+            else if(e.target.tagName === "SPAN"){
+                e.target.parentElement.remove();
+                saveData();
+
+            }
+        }, false);
+
+
+        // store the list items on local browser storage
+        function saveData(){
+            localStorage.setItem("data", listContainer.innerHTML);
+        }
+
+        function showTask(){
+            localStorage.getItem("data")
+        }
+        showTask()
+    </script>
+</body>
+</html>
