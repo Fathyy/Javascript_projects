@@ -81,7 +81,7 @@
             color: #555;
             text-decoration: line-through;
         }
-        #listContainer li::after{
+        #listContainer li.checked::before{
             background-image: url(images/checked.png);
         }
         span{
@@ -138,11 +138,11 @@
                 let span = document.createElement("span");
                 span.innerHTML = "\u00d7";
                 li.appendChild(span);
-
-                // clear the input after it is displayed on the list
-                inputText.value ="";
-                saveData();
             }
+
+            // clear the input after it is displayed on the list
+            inputText.value ="";
+            saveData();
         }
 
         // when the list is clicked, mark it as checked
@@ -154,7 +154,6 @@
             else if(e.target.tagName === "SPAN"){
                 e.target.parentElement.remove();
                 saveData();
-
             }
         }, false);
 
@@ -165,7 +164,7 @@
         }
 
         function showTask(){
-            localStorage.getItem("data")
+            listContainer.innerHTML = localStorage.getItem("data")
         }
         showTask()
     </script>

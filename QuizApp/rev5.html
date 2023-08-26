@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        .wrapper{
+            min-height: 100vh;
+            width: 100%;
+            background-color: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .container{
+            background-color: #fff;
+            padding: 30px;
+            width: 500px;
+        }
+        .container h1{
+            margin-bottom: 1rem;
+            border-bottom: 1px solid;
+            padding-bottom: 1rem;
+            font-weight: 500;
+        }
+        .questions h3{
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .btn{
+            outline: 0;
+            border: 0;
+            width: 100%;
+            text-align: left;
+            padding: 12px 20px;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            background-color: transparent;
+            border: 1px solid;
+        }
+        .btn:disabled{
+            cursor: no-drop;
+        }
+        .btn:focus,
+        .btn:hover([disabled]){
+            background-color: #000;
+            color: #fff;
+        }
+        .button-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #nextBtn{
+            background-color: blue;
+            padding: 12px 20px;
+            color: #fff;
+            outline: 0;
+            border: 0;
+            border-radius: 5px;
+            width: 30%;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+        .correct{
+            background-color: #9aeabc;
+        }
+        .incorrect{
+            background-color: #ff9393;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>Simple Quiz</h1>
+            <div class="questions">
+                <h3 id ="question">Question goes here</h3>
+                <div id="answerButtons">
+                    <button class="btn">Answer 1 or 2</button>
+                    <button class="btn">Answer 1 or 2</button>
+                    <button class="btn">Answer 1 or 2</button>
+                    <button class="btn">Answer 1 or 2</button>
+                </div>
+    
+                <div class="button-wrapper">
+                    <div id="nextBtn">Next</div>
+                </div>
+    
+            </div>
+    
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital city of Kenya?",
+                answers: [
+                    {text: "Nairobi", correct: true},
+                    {text: "Nakuru", correct: false},
+                    {text: "Mombasa", correct: false},
+                    {text: "Lamu", correct: false},
+                ]
+            },
+
+            {
+                question: "What is your favorite color?",
+                answers: [
+                    {text: "Blue", correct: true},
+                    {text: "Green", correct: false},
+                    {text: "Yellow", correct: false},
+                    {text: "Orange", correct: false},
+                ]
+            },
+
+            {
+                question: "What is the largest desert in the world?",
+                answers: [
+                    {text: "Antartica", correct: false},
+                    {text: "Gobi", correct: false},
+                    {text: "Kalahari", correct: false},
+                    {text: "Sahara", correct: true},
+                ]
+            },
+
+            {
+                question: "What is the smallest continent in the world?",
+                answers: [
+                    {text: "Australia", correct: true},
+                    {text: "Africa", correct: false},
+                    {text: "Asia", correct: false},
+                    {text: "Arctic", correct: false},
+                ]
+            }
+            
+        ];
+
+        const questionElement = document.getElementById("question");
+        const answerButtons = document.getElementById("answerButtons");
+        const nextBtn = document.getElementById("nextBtn");
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz(){
+            currentQuestionIndex = 0;
+            score = 0;
+            nextBtn.innerHTML = "Next";
+            showQuestion();
+        }
+
+        function showQuestion(){
+            resetState();
+            currentQuestion = questions[currentQuestionIndex];
+            questionNo = currentQuestionIndex + 1;
+            questionElement.innerHTML =  questionNo + " ." + currentQuestion.question;
+
+            currentQuestion.answers.forEach(answer =>{
+                const button = document.createElement("button");
+                button.innerHTML = answer.text;
+                button.classList.add("btn");
+                answerButtons.appendChild(button);
+
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+
+                button.addEventListener("click", selectAnswer);
+
+            });
+        }
+
+        function resetState(){
+            nextBtn.style.display = "none";
+            while (answerButtons.firstChild) {
+                answerButtons.removeChild(answerButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e){
+            const selectedBtn = e.target;
+            const isCorrect = selectedBtn.dataset.correct === "true";
+            if (isCorrect) {
+                selectedBtn.classList.add("correct");
+                score++;
+            }
+            else{
+                selectedBtn.classList.add("incorrect");
+            }
+            Array.from(answerButtons.children).forEach(button =>{
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            nextBtn.style.display = "block";
+        }
+
+        function showScore(){
+            resetState();
+            questionElement.innerHTML = `You have scored ${score} out of ${questions.length}`;
+            nextBtn.innerHTML = "Play Again";
+            nextBtn.style.display = "block";
+        }
+
+
+        function handleNextButton(){
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            }
+            else{
+                showScore();
+            }
+        }
+
+        nextBtn.addEventListener("click", ()=>{
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton()
+            }
+            else{
+                startQuiz();
+            }
+        });
+        startQuiz();
+    </script>
+    
+</body>
+</html>
