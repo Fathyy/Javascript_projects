@@ -21,7 +21,6 @@
     // if there is no error display sucess message
     nameError.innerHTML = '<i class="fas fa-check-circle"></i>';
     return true;
-
  }
 
  function validatePhone(){

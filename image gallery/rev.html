@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before,*::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            background-color: #191919;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10% auto;
+        }
+        .gallery{
+            width: 900px;
+            display: flex;   
+            overflow-x: scroll;   
+        }
+        .gallery div{
+            width: 100%;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 20px;
+            padding: 10px;
+            flex: none;
+        }
+        .gallery div img{
+            width: 100%;
+            filter: grayscale(100%);
+            transition: transform 0.5s;
+        }
+        .gallery div img:hover{
+            filter: grayscale(0);
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .gallery::-webkit-scrollbar{
+            display: none;
+        }
+        #nextBtn, #backBtn{
+            width: 50px;
+            cursor: pointer;
+            margin: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/back.png" alt="" id="backBtn">
+        <div class="gallery">
+            <div>
+                <img src="images/image-1.png" alt="">
+                <img src="images/image-2.png" alt="">
+                <img src="images/image-3.png" alt="">
+            </div>
+
+            <div>
+                <img src="images/image-4.png" alt="">
+                <img src="images/image-5.png" alt="">
+                <img src="images/image-6.png" alt="">
+            </div>
+        </div>
+        <img src="images/next.png" alt="" id="nextBtn">
+    </div>
+
+    <script>
+        let scrollContainer = document.querySelector(".gallery");
+        let backBtn = document.getElementById("backBtn");
+        let nextBtn = document.getElementById("nextBtn");
+
+        scrollContainer.addEventListener("wheel", (e)=>{
+            e.preventDefault();
+            scrollContainer.scrollLeft += e.deltaY;
+            scrollContainer.style.scrollBehavior = "auto";
+        });
+
+        nextBtn.addEventListener("click", ()=>{
+            scrollContainer.style.scrollBehavior = "smooth";
+            scrollContainer.scrollLeft += 900;
+        });
+
+        backBtn.addEventListener("click", ()=>{
+            scrollContainer.style.scrollBehavior = "smooth";
+            scrollContainer.scrollLeft -= 900;
+        });
+    </script>
+    
+</body>
+</html>
