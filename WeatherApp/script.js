@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const apiKey = process.env.WEATHER_API_KEY;
+const apiKey = "";
     const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
     const inputBox = document.getElementById("input-box");
