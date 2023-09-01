@@ -1,12 +1,12 @@
- var nameError = document.getElementById("nameError");
- var emailError = document.getElementById("emailError");
- var phoneError = document.getElementById("phoneError");
- var messageError = document.getElementById("messageError");
- var submitError = document.getElementById("submitError");
+ let nameError = document.getElementById("nameError");
+ let emailError = document.getElementById("emailError");
+ let phoneError = document.getElementById("phoneError");
+ let messageError = document.getElementById("messageError");
+ let submitError = document.getElementById("submitError");
 
 //  function to be executed whenever you type something in the input 
  function validateName(){
-     var contactName = document.getElementById("contactName").value;
+     let contactName = document.getElementById("contactName").value;
 
     //  if name is empty, show required error
     if (contactName.length == 0) {
@@ -24,7 +24,7 @@
  }
 
  function validatePhone(){
-    var contactPhone = document.getElementById("contactPhone").value;
+    let contactPhone = document.getElementById("contactPhone").value;
 
     if (contactPhone.length == 0) {
         phoneError.innerHTML = "Phone no is required";
@@ -37,7 +37,7 @@
     }
 
     if (!contactPhone.match(/^[0-9]{10}$/)) {
-        nameError.innerHTML = "Only digits are allowed";
+        phoneError.innerHTML = "Only digits are allowed";
         return false;
     }
 
@@ -46,7 +46,7 @@
  }
 
  function validateEmail(){
-    var contactEmail = document.getElementById("contactEmail").value;
+    let contactEmail = document.getElementById("contactEmail").value;
 
     if (contactEmail.length == 0) {
         emailError.innerHTML = "Email is required";
@@ -64,11 +64,11 @@
  }
 
  function validateMessage(){
-    var contactMessage = document.getElementById("contactMessage").value;
+    let contactMessage = document.getElementById("contactMessage").value;
     // required characters
-    var required = 30;
+    let required = 30;
     // characters left
-    var left = required - contactMessage.length;
+    let left = required - contactMessage.length;
 
     if (left > 0) {
         messageError.innerHTML = left + ' more characters required';
@@ -81,7 +81,7 @@
  }
 
  function validateForm(){
-    if (!validateName() || !validatePhone() || !validateEmail() || !validateMessage()) {
+    if (!validateName || !validatePhone || !validateEmail || !validateMessage) {
         submitError.style.display = "block";
         submitError.innerHTML = "Please fix error to submit";
         setTimeout(function(){submitError.style.display = "none"}, 3000);
