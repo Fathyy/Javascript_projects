@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+        *, *::before,*::after{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container{
+        width: 100%;
+        min-height: 100vh;
+        background-image: linear-gradient(#f44336, #730228);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .selector{
+        width: 400px;
+    }
+    .hero{
+        width: 100%;   
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 1rem;
+    }
+    .hero img{
+        width: 20px;
+        margin-right: 1rem;
+        transition: transform 0.5s;
+    }
+    .options img{
+        width: 20px;
+    }
+    .list{
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 6px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .options{
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .options:hover{
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+    .hide{
+        visibility: hidden;
+    }
+    .rotate{
+        transform: rotate(180deg);
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="selector">
+            <div class="hero">
+                <p class="textField">Select Social Media</p>
+                <img src="images/arrow.png" alt="" class="arrow">
+            </div>
+            <ul class="list hide">
+                <li class="options">
+                    <img src="images/facebook.png" alt="">
+                    <p>Facebook</p>
+                </li>
+        
+                <li class="options">
+                    <img src="images/instagram.png" alt="">
+                    <p>Instagram</p>
+                </li>
+        
+                <li class="options">
+                    <img src="images/pinterest.png" alt="">
+                    <p>Pinterest</p>
+                </li>
+        
+                <li class="options">
+                    <img src="images/twitter.png" alt="">
+                    <p>Twitter</p>
+                </li>
+        
+                <li class="options">
+                    <img src="images/whatsapp.png" alt="">
+                    <p>WhatsApp</p>
+                </li>
+        
+                <li class="options">
+                    <img src="images/youtube.png" alt="">
+                    <p>YouTube</p>
+                </li>       
+            </ul>
+        </div>
+    </div>
+    <script>
+        let textField = document.querySelector(".textField");
+        let arrow = document.querySelector(".arrow");
+        let list = document.querySelector(".list");
+        let options = document.getElementsByClassName(".textField");
+        let hero = document.querySelector(".hero");
+
+        hero.addEventListener("click", ()=>{
+            list.classList.toggle("hide");
+            arrow.classList.toggle("rotate");
+        });
+
+        for (option of options) {
+            option.addEventListener("click", ()=>{
+                textField.innerHTML  = this.textContent;
+                list.classList.toggle("hide");
+                arrow.classList.toggle("rotate");
+            });
+            
+        }
+
+    </script>   
+</body>
+</html>
