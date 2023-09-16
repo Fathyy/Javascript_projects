@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWN</title>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            background-color: #c7ecee;
+        }
+        img{
+            max-width: 100%;
+        }
+        .container{
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .product{
+            max-width: 750px;
+            width: 90%;
+            display: flex;
+        }
+        .image-container{
+            background-color: #000;
+            width: 48%;
+            transform: scale(1.1);
+            box-shadow: -10px 5px 10px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .image-container img{
+            width: 100%;
+            
+        }
+        .details{
+            background-color: #fff;
+            padding: 40px;
+            width: 52%;
+            /* padding-left: 60px; */
+            box-shadow: -10px 5px 10px 10px rgba(0, 0, 0, 0.1);
+        }
+        .details h1{
+            color: #333;
+            font-size: 35px;
+        }
+        .details h2{
+            color: #555;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .details h3{
+            color: #00d874;
+            margin-bottom: 20px;
+        }
+        form{
+            font-weight: 400;
+            font-size: 15px;
+        }
+        .size-select{
+            margin-top: 50px;
+        }
+        .size-select, .color-select, .quantity-select{
+            display: flex;
+            align-items: center;
+        }
+        .size-select input, .color-select input{
+            display: none;
+        }
+        .size-select span{
+            margin-right: 1rem;
+        }
+        .side-text{
+            width: 75px;
+        }
+        .size-select input:checked + span{
+            color: blue;
+            font-weight: 600;
+        }
+        .color-select, .quantity-select{
+            margin-top: 20px;
+        }
+        .color-select span{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;   
+            display: inline-block;
+            margin-right: 1rem;
+        }
+        .color-select input:checked + span{
+            transform: scale(0.7);
+            box-shadow: 0 0 0 4px #fff, 0 0 0 6px #000;
+        }
+        .color-1{
+            background-color: green;
+        }
+        .color-2{
+            background-color: red;
+        }
+        .color-3{
+            background-color: blue;
+        }
+        .color-4{
+            background-color: pink;
+        }
+        .quantity-select input{
+            border: none;
+            outline: none;
+            padding: 2px 2px 2px 15px;
+            width: 50px;
+            border-radius: 12px;
+            background-color: #eee;
+        }
+        .btn{
+            border: none;
+            outline: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            background-color: #553ff0;
+            color: #fff;
+            box-shadow: 0px 10px 10px rgba(85, 63, 240, 0.25);
+        }
+        .controls{
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+        }
+        .controls .btnn{
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .btnn.active{
+            background-color: #553ff0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <div class="image-container">
+                <img src="images/image1.png" alt="" id="productImage">
+                <div class="controls">
+                    <span class="btnn active"></span>
+                    <span class="btnn"></span>
+                    <span class="btnn"></span>
+                </div>
+            </div>
+            <div class="details">
+                <h1>Casual T shirt</h1>
+                <h2>$15.00</h2>
+                <h3>30% OFF</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, ducimus.</p>
+                <form>
+                    <div class="size-select">
+                        <p class="side-text">Size</p>
+                        <label for="small">
+                            <input type="radio" name="size" id="small">
+                            <span>S</span>
+                        </label>
+                        <label for="medium">
+                            <input type="radio" name="size" id="medium">
+                            <span>M</span>
+                        </label>
+                        <label for="large">
+                            <input type="radio" name="size" id="large">
+                            <span>L</span>
+                        </label>
+                        <label for="XL">
+                            <input type="radio" id="XL" name="size">
+                            <span>XL</span>
+                        </label>
+                        <label for="XXL">
+                            <input type="radio" id="XXL" name="size">
+                            <span>XXL</span>
+                        </label>
+                    </div>
+                    <div class="color-select">
+                        <p class="side-text">Color</p>
+                        <label for="red">
+                            <input type="radio" id="red" name="color">
+                            <span class="color-1"></span>
+                        </label>
+                        <label for="green">
+                            <input type="radio" id="green" name="color">
+                            <span class="color-2"></span>
+                        </label>
+                        <label for="blue">
+                            <input type="radio" id="blue" name="color">
+                            <span class="color-3"></span>
+                        </label>
+                        <label for="pink">
+                            <input type="radio" id="pink" name="color">
+                            <span class="color-4"></span>
+                        </label>
+                    </div>
+                    <div class="quantity-select">
+                        <p class="side-text">Quantity</p>
+                        <input type="number" value="1" id="">
+                    </div>
+    
+                    <button type="submit" class="btn">Buy Now</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const btn = document.getElementsByClassName("btnn");
+        productImage = document.getElementById("productImage");
+
+        
+            btn[0].addEventListener("click", ()=>{
+                productImage.src = "images/image1.png";
+                for (bt of btn) {
+                    bt.classList.remove("active")    
+                }
+                this.classList.add("active");
+            });
+            btn[1].addEventListener("click", ()=>{
+                productImage.src = "images/image2.png";
+                for (bt of btn) {
+                    bt.classList.remove("active")    
+                }
+                this.classList.add("active");
+            });
+            btn[2].addEventListener("click", ()=>{
+                productImage.src = "images/image3.png";
+                for (bt of btn) {
+                    bt.classList.remove("active")    
+                }
+                this.classList.add("active");
+            });
+            
+    </script>
+    
+</body>
+</html>

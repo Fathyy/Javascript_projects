@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before,*::after{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    body{
+        background-color: #730228;
+    }
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: #fff;
+    }
+    .left, .right{
+        border: 2px dashed #fff;
+        padding: 30px;
+        width: 300px;
+        height: 400px;
+    }
+    .list{
+        padding: 10px 20px;
+        background: green;
+        margin-bottom: 2rem;
+        text-align: center;
+        cursor: grab;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="list" draggable="true">one</div>
+            <div class="list" draggable="true">two</div>
+            <div class="list" draggable="true">three</div>
+            <div class="list" draggable="true">four</div>
+        </div>
+        <div class="right"></div>
+    </div>
+
+    <script>
+        left = document.querySelector(".left");
+        right = document.querySelector(".right");
+
+        lists = document.getElementsByClassName("list");
+
+        for (list of lists) {
+            list.addEventListener("dragstart", (e)=>{
+                let selected = e.target;
+
+                right.addEventListener("dragover", (e)=>{
+                    e.preventDefault();
+                })
+                right.addEventListener("drop", (e)=>{
+                    right.appendChild(selected);
+                    selected = null;
+                })
+
+                left.addEventListener("dragover", (e)=>{
+                    e.preventDefault();
+                })
+                left.addEventListener("drop", (e)=>{
+                    left.appendChild(selected);
+                    selected = null;
+                })
+            });
+            
+        }
+    </script>
+    
+</body>
+</html>
