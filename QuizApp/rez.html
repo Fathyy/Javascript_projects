@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Another One</title>
+    <title>REZ</title>
 
     <style>
         *, *::before, *::after{
@@ -90,17 +90,15 @@
     </div>
 
     <script>
-        // array to hold questions and answers
-
-        const questions =[
+        const questions = [
             {
-                question: "What is the capital city of Kenya",
-                answers:[
-                 {text: "Nairobi", correct: true},
-                 {text: "Nanyuki", correct: false},
-                 {text: "Eldoret", correct: false},
-                 {text: "Mombasa", correct: false}   
-                 ]   
+                question: "What is the capital city of Kenya?",
+                answers: [
+                    {text: "Nairobi", correct: true},
+                    {text: "Nakuru", correct: false},
+                    {text: "Mombasa", correct: false},
+                    {text: "Kisumu", correct: false}
+                ]
             },
 
             {
@@ -133,12 +131,11 @@
                     {text: "Sahara", correct: true},
                 ]
             }
-        ];
+        ]
 
-        // declare variables for answers, questions and the next button
-        const questionElement =document.getElementById("questions");
-        const answerButtons =document.getElementById("answer-questions");
-        const nextBtn =document.getElementById("next-btn");
+        const questionElement = document.getElementById("questions");
+        const nextBtn = document.getElementById("next-btn");
+        const answerButtons = document.getElementById("answer-questions");
 
         let currentQuestionIndex = 0;
         let score = 0;
@@ -146,90 +143,87 @@
         function startQuiz(){
             currentQuestionIndex = 0;
             score = 0;
-            nextBtn.innerHTML ="Next";
-            showQuestion();
+            nextBtn.innerHTML = "Next";
+            showQuiz();
         }
-        function showQuestion(){
-            // remove previous question and answer before showing a new one
-            resetState();
-            // get the question index by adding question index (array) by one. Then add it before a question
-            let currentQuestion = questions[currentQuestionIndex];
-            let questionNo = currentQuestionIndex + 1;
-            questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
 
-            // display the answers inside the buttons now
-            currentQuestion.answers.forEach(answer =>{
+        function showQuiz(){
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            let questionNo = currentQuestion + 1;
+            questionElement.innerHTML = questionNo + " ." + currentQuestion.question;
+
+            currentQuestion.answers.forEach(answer=>{
                 let button = document.createElement("button");
                 button.innerHTML = answer.text;
                 button.classList.add("btn");
                 answerButtons.appendChild(button);
 
-                // add true or false to the answer based on the chosen one
+                // check if answer is correct
                 if (answer.correct) {
                     button.dataset.correct = answer.correct;
                 }
 
-                // add the click function on the answers
                 button.addEventListener("click", selectAnswer);
             });
         }
 
         function resetState(){
-            nextBtn.style.display ="none";
-            while (answerButtons.firstChild) {
-                answerButtons.removeChild(answerButtons.firstChild);
-            }
+           nextBtn.style.display = "none";
+           while(answerButtons.firstChild) {
+            answerButtons.removeChild(answerButtons.firstChild);
+           }
         }
 
         function selectAnswer(e){
             const selectedBtn = e.target;
-            const isCorrect = selectedBtn.dataset.correct === "true";
+            const isCorrect = selectedBtn.dataset.correct;
             if (isCorrect) {
                 selectedBtn.classList.add("correct");
-                // when correct answer is chosen, increase the score
                 score++;
             }
             else{
                 selectedBtn.classList.add("incorrect");
             }
 
-            Array.from(answerButtons.children).forEach(button =>{
+            Array.from(answerButtons.children).forEach(button=>{
                 if (button.dataset.correct === "true") {
                     button.classList.add("correct");
                 }
                 button.disabled = true;
             });
-            nextBtn.style.display="block";
+            nextBtn.style.display = "block";
         }
 
         function showScore(){
             resetState();
-            questionElement.innerHTML =`You have scored ${score} out of ${questions.length}`;
-            nextBtn.innerHTML ="Play Again";
-            nextBtn.style.display ="block";
+            questionElement.innerHTML = `You have scored ${score} out of ${questions.length}`;
+            nextBtn.innerHTML = "Play Again";
+            nextBtn.style.display = "block";
         }
 
-        function handlNextButton(){
+        function handleNextButton(){
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
-                showQuestion();
+                showQuiz();
             }
             else{
                 showScore();
             }
         }
 
+        // handle next button
         nextBtn.addEventListener("click", ()=>{
             if (currentQuestionIndex < questions.length) {
-                handlNextButton();
+                handleNextButton();
             }
             else{
                 startQuiz();
             }
         })
-
-
         startQuiz();
+
+
     </script>
 </body>
 </html>

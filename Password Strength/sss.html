@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            width: 100%;
+            min-height: 100vh;
+            background-color: cadetblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        input{
+            padding: 20px;
+            border: 0;
+            outline: 0;
+            width: 300px;
+        }
+        .validation{
+            margin-top: 1rem;
+            background-color: #fff;
+            padding: 20px;
+            width: 300px;
+        }
+        .fa-circle-check{
+            color: green;
+        }
+        .fa-circle-xmark{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-box">
+            <input type="password" placeholder="password" id="passwordInput">
+        </div>
+
+        <div class="validation">
+            <p>At least one uppercase required <span  id="uppercaseError"></span></p>
+            <p>At least one lowercase required <span id="lowercaseError"></span></p>
+            <p>At least one number required <span id="numberError"></span></p>
+            <p>At least one special character required <span id="specialError"></span></p>
+            <p>Minimum of 8 characters and more <span id="lengthError"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const uppercaseError = document.getElementById("uppercaseError");
+        const lowercaseError = document.getElementById("lowercaseError");
+        const numberError = document.getElementById("numberError");
+        const specialError = document.getElementById("specialError");
+        const lengthError = document.getElementById("lengthError");
+
+        const passwordInput = document.getElementById("passwordInput");
+        const validation = document.querySelector(".validation");
+
+        passwordInput.onfocus = function(){
+            validation.style.display = "block"
+        }
+        passwordInput.onblur = function(){
+            validation.style.display = "none"
+        }
+
+        
+        passwordInput.onkeyup = function(){
+            // check for uppercase
+            let uppercase = /[A-Z]/g
+            if (passwordInput.value.match(uppercase)) {
+                uppercaseError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                uppercaseError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            // check for lowercase
+            let lowercase = /[a-z]/g
+            if (passwordInput.value.match(lowercase)) {
+                lowercaseError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                lowercaseError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            // check for number
+            let number = /[0-9]/g
+            if (passwordInput.value.match(number)) {
+                numberError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                numberError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            // special character
+            let special = /[-#$.%&@!?^,_+=<>*]/;
+            if (passwordInput.value.match(special)) {
+                specialError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                specialError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            // minumum length
+            if (passwordInput.value.length >= 8) {
+                lengthError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                lengthError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+        }
+    </script>
+</body>
+</html>

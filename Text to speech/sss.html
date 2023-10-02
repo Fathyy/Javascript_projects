@@ -14,40 +14,29 @@
             <select name="" id=""></select>
             <button><img src="images/play.png" alt="">Litsen</button>
         </div>
-
     </div>
-     
+
     <script>
-        // Create a new object that facilitates speech to text
         let speech = new SpeechSynthesisUtterance();
 
-        // Create an array to hold the voices    
         let voices = [];
-        let voiceSelect = document.querySelector("select");
+        let voicesSelect = document.querySelector("select");
 
-        // create a onvoiceschanges event on the window.speechSynthesis object
         window.speechSynthesis.onvoiceschanged = ()=>{
-            // store the voices in a variable
             voices = window.speechSynthesis.getVoices();
-            // make the first voice in the list the default one
             speech.voice = voices[0];
 
-            // loop through a voices and dynamically create options element to store them and choose from there
-            voices.forEach((voice, i) => (voiceSelect.options[i] = new Option(voice.name, i)));
+            voices.forEach((voice, i) => (voicesSelect.options[i] = new Option(voice.name, i)));
         };
 
-        // change the voice based on the one selected
-        // create an event on the select element
-        voiceSelect.addEventListener("change", ()=>{
-            // the selected voice will be on the select element
-            speech.voice = voices[voiceSelect.value]
+        voicesSelect.addEventListener("change", ()=>{
+            speech.voice = voices[voicesSelect.value];
         });
 
-        // When the button is clicked, play the text in the textarea
         document.querySelector("button").addEventListener("click", ()=>{
             speech.text = document.querySelector("textarea").value;
             window.speechSynthesis.speak(speech);
-        });
+        })
     </script>
 </body>
 </html>

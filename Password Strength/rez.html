@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .hero{
+            background-color: deepskyblue;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        input{
+            padding: 10px 20px;
+            outline: 0;
+            border: 0;
+            border-radius: 5px;
+        }
+        .validation{
+            display: none;
+            background-color: #fff;
+            padding: 10px;
+            margin-top: 1rem;
+        }
+        .fa-circle-check{
+            color: green;
+        }
+        .fa-circle-xmark{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="password-box">
+            <label for="passwordInput">Password</label>
+            <input type="password" name="" id="passwordInput">
+        </div>
+
+        <div class="validation">
+            <p>UpperCase letters required <span id="upperCase"></span></p>
+            <p>Lower case letters required <span id="lowerCase"></span></p>
+            <p>Number required <span id="numbers"></span></p>
+            <p>Add a special character required <span id="symbol"></span></p>
+            <p>Minimum of 8 characters required<span id="length"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById("passwordInput");
+        const validation = document.querySelector(".validation");
+
+        const upperCaseError = document.getElementById("upperCase");
+        const lowerCaseError = document.getElementById("lowerCase");
+        const numbersError = document.getElementById("numbers");
+        const symbolError = document.getElementById("symbol");
+        const lengthError = document.getElementById("length");
+
+        passwordInput.onfocus = function(){
+            validation.style.display = "block"
+        }
+        passwordInput.onblur = function(){
+            validation.style.display = "none"
+        }
+
+        // validation begins here
+        passwordInput.onkeyup = function(){
+            let upperCase = /[A-Z]/g;
+            if (passwordInput.value.match(upperCase)) {
+                upperCaseError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';    
+            }
+            else{
+                upperCaseError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> ';
+            }
+
+            let lowerCase = /[a-z]/g;
+            if (passwordInput.value.match(lowerCase)) {
+                lowerCaseError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';    
+            }
+            else{
+                lowerCaseError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> ';
+            }
+
+            let numbers = /[0-9]/g;
+            if (passwordInput.value.match(numbers)) {
+                numbersError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';    
+            }
+            else{
+                numbersError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> ';
+            }
+
+            let symbol = /[-#$.%&@!?^,_+=<>*]/;
+            if (passwordInput.value.match(symbol)) {
+                symbolError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';    
+            }
+            else{
+                symbolError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            if (passwordInput.value.length >= 8) {
+                lengthError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+            }
+            else{
+                lengthError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+        }
+    </script>
+    
+    
+</body>
+</html>
