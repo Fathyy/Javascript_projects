@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REZ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="images/notes.png" alt="">Notes</h1>
+        <button class="btn"><img src="images/edit.png" alt="">Create Notes</button>
+        <div class="notes-container">
+            <!-- <p contenteditable="true" class="input-box">
+                <img src="images/delete.png" alt="">
+            </p> -->
+        </div>
+    </div>
+  <!-- <script src="script.js"></script>   -->
+
+  <script>
+    const btn = document.querySelector(".btn");
+    const notesContainer = document.querySelector(".notes-container");
+
+
+    // select all notes
+    let notes = document.querySelectorAll(".input-box");
+
+    function showNotes(){
+        notesContainer.innerHTML = localStorage.getItem("notes")
+    }
+    showNotes()
+
+
+    // put the notes in the browser local storage
+    function updateStorage(){
+        localStorage.setItem("notes", notesContainer.innerHTML);
+    }
+
+    btn.addEventListener("click", ()=>{
+        let paragraph = document.createElement("p");
+        let image = document.createElement("img");
+        paragraph.className = "input-box";
+        paragraph.setAttribute("contenteditable", "true");
+        image.src = "images/delete.png";
+        notesContainer.appendChild(paragraph).appendChild(image);
+    });
+
+
+    notesContainer.addEventListener("click", (e)=>{
+        if (e.target.tagName === "IMG") {
+            e.target.parentElement.remove();
+            updateStorage()
+        }
+        else if (e.target.tagName === "P") {
+            notes = document.querySelectorAll(".input-box");
+            notes.forEach(nt=> {
+                nt.onkeyup = function (){
+                    updateStorage();
+                }
+            });
+        }
+
+    });
+
+    // insert next line using the enter key
+    document.addEventListener("click", event=>{
+        if (event.key === "Enter") {
+            document.execCommand("insertLineBreak");
+            event.preventDefault;
+        }
+    });
+  </script>
+
+  
+</body>
+</html>
