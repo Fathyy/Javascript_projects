@@ -92,36 +92,36 @@
 
     </div>
 
-    
- <script>
-    let notificationBox = document.getElementById("notification-box");
-    let successMsg = '<i class="fa-solid fa-circle-check"></i>Successfully submitted';
-    let errorMsg = '<i class="fa-solid fa-circle-xmark"></i>An error was encountered. Please try again';
-    let invalidMsg = '<i class="fa-solid fa-circle-exclamation"></i>This is an invalid output';
+    <script>
+        const notificationBox = document.getElementById("notification-box");
 
-    // create function to show notification messages
-    function showNotification(msg){
-        let notification = document.createElement("div");
-        notification.classList.add("notification");
+        let successMsg = '<i class="fa-solid fa-circle-check"></i>Successfully submitted';
+        let errorMsg = '<i class="fa-solid fa-circle-xmark"></i>An error was encountered. Please try again';
+        let invalidMsg = '<i class="fa-solid fa-circle-exclamation"></i>This is an invalid output';
 
-        notification.innerHTML = msg;
-        notificationBox.appendChild(notification);
+        function showNotification(msg){
+            let notification = document.createElement("div");
+            notification.classList.add("notification");
 
-        // add one more class for error and invalid notification
-        if (msg.includes('error')) {
-            notification.classList.add('error');
-        } 
-        // if error message has the word invalid
-        if (msg.includes('invalid')) {
-            notification.classList.add('invalid');
+            notification.innerHTML = msg;
+
+            notificationBox.appendChild(notification);
+
+            if (msg.includes("error")) {
+                notification.classList.add("error");
+            }
+            if (msg.includes("invalid")) {
+                notification.classList.add("invalid");
+            }
+
+            setInterval(() => {
+                notification.remove();
+            }, 6000);
+
         }
+    </script>
 
-        // hide the notifications after some 6 seconds
-        setTimeout(()=>{
-            notification.remove();
-        }, 6000);
-
-    }
- </script>   
+    
+ 
 </body>
 </html>

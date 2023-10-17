@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REJ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1 class="heading">JavaScript <br>
+                <span>Age Calculator</span>
+            </h1>
+            <div class="input-box">
+                <input type="date" id="date">
+                <button onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        const result = document.getElementById("result");
+        const inputBox = document.querySelector("input-box");
+
+        const userInput = document.getElementById("date");
+
+        // prevent user from entering a future date
+        userInput.max = new Date().toISOString().split("T")[0];
+
+        function calculateAge(){
+            // birthdate details
+            const birthDate = new Date(userInput.value);
+
+            let y1 = birthDate.getFullYear();
+            let m1 = birthDate.getMonth() + 1;
+            let d1 = birthDate.getDate();
+
+            // today details
+            const today = new Date();
+
+            let y2 = today.getFullYear();
+            let m2 = today.getMonth() + 1;
+            let d2 = today.getDate();
+
+            // get the difference between the two
+            let y3, m3, d3;
+
+            // get the year difference
+            y3 = y2 - y1;
+
+            // month difference
+
+            if (m2 >= m1) {
+                m3 = m2 - m1;
+            }
+            else{
+                y3--;
+                m3 = 12 + m2 - m1;
+            }
+
+            // calculate the day difference now
+            if (d2 >= d1) {
+                d3 = d2 - d1;
+            }
+            else{
+                m3--;
+                d3 = getDaysInMonth(y1, m1) + d2 - d1;
+            }
+            result.innerHTML = `You are ${y3} years, ${m3} months and ${d3} days old`;
+        }
+
+        function getDaysInMonth(year, month){
+            return new Date(year, month, 0).getDate();
+        }
+    </script>
+</body>
+</html>
