@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        .container{
+            max-width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(251,164,63,1) 0%, rgba(244,70,252,1) 100%);
+            display: flex;
+            justify-content: center;
+        }
+        .wrapper{
+            margin-top: 50px;
+        }
+        .select-box, .icons{
+            background-color: #efefef;
+            width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .select-box{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+        }
+        img{
+            max-width: 100%;
+            width: 20px;
+        }
+        .icons{
+            margin-top: 10px;
+        }
+        .icons div{
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="select-box">
+                <p>Select Social Media</p>
+                <img src="images/arrow.png" alt="">
+            </div>
+            <div class="icons">
+                <div>
+                    <img src="images/youtube.png" alt="">
+                    <p>YouTube</p>
+                </div>
+                <div>
+                    <img src="images/twitter.png" alt="">
+                    <p>Twitter</p>
+                </div>
+                <div>
+                    <img src="images/pinterest.png" alt="">
+                    <p>Pinterest</p>
+                </div>
+                <div>
+                    <img src="images/whatsapp.png" alt="">
+                    <p>Whatsapp</p>
+                </div>
+                <div>
+                    <img src="images/instagram.png" alt="">
+                    <p>Instagram</p>
+                </div>
+                <div>
+                    <img src="images/facebook.png" alt="">
+                    <p>Facebook</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
