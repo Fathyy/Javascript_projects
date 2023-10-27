@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container{
+            width: 100%;
+            min-height: 100vh;
+            background-image: url(images/background.png);
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+        .img{
+            max-width: 100%;
+        }
+        .wrapper{
+            width: 90%;
+            margin: 0 auto;
+        }
+        nav{
+            padding: 1rem 0;
+        }
+        ul{
+            list-style-type: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;   
+        }
+        li{
+            padding: 1rem;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .EN{
+            border: 1px solid #fff;
+            border-radius: 1.2rem;
+            padding: 0.5rem 1.5rem;
+        }
+        .logo{
+            width: 60px;
+        }
+        .content h1{
+            font-size: 90px;
+        }
+        span{
+            color: goldenrod;
+        }
+        .btn{
+            background-color: goldenrod;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 20px;
+            text-transform: uppercase;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 8rem;
+            display: inline-block;
+            color: #fff;
+        }
+        .content{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+        }
+        .content p{
+            margin-top: 1rem;
+        }
+        .coins{
+            position: absolute;
+            right: 20%;
+            bottom: 10%;
+            display: flex;
+            align-items: center;
+        }
+        .coins-flex{
+            display: flex;
+            align-items: center;
+            color: #fff;
+            padding: 20px 30px;
+            border: 1px solid #fff;
+            margin-right: 10px;
+            border-radius: 10px;
+            color: goldenrod;
+        }
+        .coins-flex img{
+            width: 40px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <nav>
+                <ul>
+                    <ul>
+                        <img src="images/logo.png" alt="" class="logo">
+                        <li>Market</li>
+                        <li>Market</li>
+                        <li>Market</li>
+                        <li>Market</li>
+                    </ul>
+
+                    <div>
+                        <li class="EN">EN</li>
+                    </div>
+                </ul>
+            </nav>
+
+
+            <div class="content">
+                <h1>BUY & <br>
+                SELL <span>Crypto</span></h1>
+                <p>Lorem ipsum dolor sit amet consectetur.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+
+            <div class="coins">
+                <div class="coins-flex">
+                    <img src="images/bitcoin.png" alt="">
+                    <div>
+                        <p>$33994</p>
+                        <p>Bitcoin</p>
+                    </div>
+                </div>
+                <div class="coins-flex">
+                    <img src="images/ethereum.png" alt="">
+                    <div>
+                        <p>$33994</p>
+                        <p>Ethereum</p>
+                    </div>
+                </div>
+                <div class="coins-flex">
+                    <img src="images/dogecoin.png" alt="">
+                    <div>
+                        <p>$33994</p>
+                        <p>Dogecoin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>
