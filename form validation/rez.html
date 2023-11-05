@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            background-color: #0081CF;
+            max-width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-wrapper{
+            padding: 50px 25px;
+            background-color: #fff;
+            
+        }
+        .input-content{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            align-items: center;
+            font-size: 18px;
+            gap: 4rem;
+        }
+        .inputs{
+            border: none;
+            padding: 10px 20px;
+            outline: none;
+            border-bottom: 1px solid;
+            font-size: 18px;
+            font-family: inherit;
+        }
+        .btn{
+            border: none;
+            outline: none;
+            background: #0081CF;
+            padding: 10px 30px;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 18px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .button-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <form action="">
+                <div class="input-content">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="inputs" placeholder="Your name">
+                </div>
+
+                <div class="input-content">
+                    <label for="name">Phone</label>
+                    <input type="text" id="phone" class="inputs" placeholder="Your phone">
+                </div>
+                
+                <div class="input-content">
+                    <label for="name">Email</label>
+                    <input type="text" id="email" class="inputs" placeholder="Your email">
+                </div>
+
+                <div class="input-content">
+                    <label for="name">Message</label>
+                    <textarea name="" id="" id="name" class="inputs" placeholder="Your Message"></textarea>
+                </div>
+
+                <div class="button-wrapper">
+                    <input type="submit" value="Submit" class="btn">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

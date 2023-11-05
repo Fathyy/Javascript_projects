@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <style>
+        button{
+            background-color: black;
+            color: #fff;
+            padding: 25px 50px;
+            margin: 2rem;
+            cursor: pointer;
+        }
+        /* this div holds the 3 notifications */
+        #notification-box{
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 20px;
+        }
+        /* individual notification */
+        .notification{
+            width: 500px;
+            height: 80px;
+            background-color: #fff;
+            font-weight: 500;
+            margin: 15px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            position: relative;
+            transform: translateX(100%);
+            animation: moveleft 0.5s linear forwards;
+        }
+        @keyframes moveleft{
+            100%{
+                transform: translateX(0);
+            }
+        }
+        .notification i{
+            font-size: 35px;
+            color: green;
+            margin: 0 20px;
+        }
+        .notification.error i{
+            color: red;
+        }
+
+        .notification.invalid i{
+            color: orange;
+        }
+
+        /* add the animation to decrease time */
+        .notification::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: green;
+            width: 100%;
+            height: 5px;
+            animation: anim 5s linear forwards;
+        }
+        @keyframes anim{
+            100%{
+                width: 0;
+            }
+        }
+        .notification.error::after{
+            background-color: red;
+        }
+        .notification.invalid::after{
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="buttons">
+        <button onclick="showNotification(successMsg)">Success</button>
+        <button onclick="showNotification(errorMsg)">Error</button>
+        <button onclick="showNotification(invalidMsg)">Invalid</button>
+    </div>
+
+    <div id="notification-box">
+
+
+    </div>
+
+    <script>
+
+        let successMsg = '<i class="fa-solid fa-circle-check"></i>Successfully submitted';
+        let errorMsg = '<i class="fa-solid fa-circle-xmark"></i>An error was encountered. Please try again';
+        let invalidMsg = '<i class="fa-solid fa-circle-exclamation"></i>This is an invalid output';
+
+        const notificationBox = document.getElementById("notification-box");
+
+        function showNotification(msg){
+            let div = document.createElement("div");
+            div.innerHTML = msg;
+            div.classList.add("notification");
+            notificationBox.appendChild(div);
+
+            if (msg.includes("error")) {
+                div.classList.add("error");
+            }
+            if (msg.includes("invalid")) {
+                div.classList.add("invalid");
+            }
+
+            setInterval(() => {
+                div.remove();
+            }, 5000);
+
+        }
+    </script>
+</body>
+</html>

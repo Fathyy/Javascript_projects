@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ed20622ed8.js" crossorigin="anonymous"></script>
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #3286A0;
+            min-height: 100vh;
+            max-width: 100%;
+        }
+        input{
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            font-size: 20px;
+        }
+        .validation-properties{
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 2rem;
+            display: none;
+        }
+        .fa-circle-check{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div>
+                <input type="password" id="pwdInput" placeholder="Your Password">
+            </div>
+            <div class="validation-properties">
+                <p>Password should have a lowercase letter <span class="lowerError"></span></p>
+                <p>Password should have a uppercase letter <span class="upperError"></span></p>
+                <p>Password should have a special symbol <span class="specialError"></span></p>
+                <p>Password should have a number <span class="numberError"></span></p>
+                <p>Password should be 12 characters or more <span class="lengthError"></span></p>
+            </div>
+        </div>
+    </div>
+     <script>
+        const pwd = document.getElementById("pwdInput");
+        const requiredLength = 12;
+
+        const lowerError = document.querySelector(".lowerError");
+        const upperError = document.querySelector(".upperError");
+        const specialError = document.querySelector(".specialError");
+        const numberError = document.querySelector(".numberError");
+        const lengthError = document.querySelector(".lengthError");
+
+
+        const validationProperties = document.querySelector(".validation-properties");
+
+        pwd.onfocus = function(){
+            validationProperties.style.display = "block";
+        }
+        pwd.onblur = function(){
+            validationProperties.style.display = "none";
+        }
+
+        pwd.onkeyup = function(){
+            let upperCase = /[A-Z]/g;
+            if (pwd.value.match(upperCase)) {
+                upperError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            else{
+                upperError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            let lowerCase = /[a-z]/g;
+            if (pwd.value.match(lowerCase)) {
+                lowerError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            else{
+                lowerError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            let numberCase = /[0-9]/g;
+            if (pwd.value.match(numberCase)) {
+                numberError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            else{
+                numberError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+            let specialCase = /[-#$.%&@!?^,_+=<>*]/;
+            if (pwd.value.match(specialCase)) {
+                specialError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            else{
+                specialError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+
+
+            if (pwd.value.length >= requiredLength) {
+                lengthError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            else{
+                lengthError.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+        }
+
+
+     </script>
+</body>
+</html>
